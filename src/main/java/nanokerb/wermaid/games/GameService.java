@@ -15,6 +15,8 @@ public class GameService {
         return gameRepository.findAll();
     }
 
+    public List<Game> getGamesByGenre(String genre) {return gameRepository.findByGenre(genre);}
+
     public Optional<Game> getGame(String id) {
         return gameRepository.findById(id);
     }
