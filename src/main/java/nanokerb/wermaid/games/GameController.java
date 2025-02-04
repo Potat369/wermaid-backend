@@ -3,10 +3,7 @@ package nanokerb.wermaid.games;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,9 +16,16 @@ public class GameController {
     private GameService gameService;
 
     @GetMapping
-    public ResponseEntity<List<Game>> getGames() {
-        return new ResponseEntity<>(gameService.getGames(), HttpStatus.OK);
+    public ResponseEntity<List<Game>> getGames(@RequestParam(required = false) String genre) {
+        if (genre != null) {
+
+            return new ResponseEntity<>(gameService.getGamesByGenre(genre), HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(gameService.getGames(), HttpStatus.OK);
+        }
     }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<Optional<Game>> getGame(@PathVariable String id) {
