@@ -18,6 +18,7 @@ public class Game {
     public Date release_date;
     public int rating;
     public int rating_count;
+    public String genre;
 
 
 }
