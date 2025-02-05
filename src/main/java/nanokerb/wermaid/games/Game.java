@@ -19,6 +19,6 @@ public class Game {
     public int rating;
     public int rating_count;
     public String genre;
-
+    public String picture_url;
 
 }
