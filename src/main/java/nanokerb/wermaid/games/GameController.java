@@ -1,6 +1,5 @@
 package nanokerb.wermaid.games;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,16 +11,18 @@ import java.util.Optional;
 @RequestMapping("/api/v1/games")
 public class GameController {
 
-    @Autowired
-    private GameService gameService;
+    private final GameService gameService;
+
+    public GameController(GameService gameService) {
+        this.gameService = gameService;
+    }
 
     @GetMapping
     public ResponseEntity<List<Game>> getGames(@RequestParam(required = false) String genre) {
         if (genre != null) {
 
             return new ResponseEntity<>(gameService.getGamesByGenre(genre), HttpStatus.OK);
-        }
-        else {
+        } else {
             return new ResponseEntity<>(gameService.getGames(), HttpStatus.OK);
         }
     }
