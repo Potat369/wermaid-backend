@@ -9,7 +9,7 @@ public class Rating {
     @Id
     public ObjectId id;
     public String username;
-    public String game_id;
+    public String gameId;
     public int rating;
     public String comment;
 }

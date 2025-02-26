@@ -13,8 +13,8 @@ public class Game {
     public String name;
     public String description;
     public String genre;
-    public Date release_date;
+    public Date releaseDate;
     public String[] links;
-    public String picture_url;
+    public String pictureUrl;
     public Rating[] ratings;
 }
