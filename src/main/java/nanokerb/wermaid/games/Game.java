@@ -12,7 +12,7 @@ import java.util.List;
 public class Game {
     @Id
     public ObjectId id;
-    public String urlId;
+    public String slug;
     public String name;
     public String description;
     public String genre;
@@ -27,7 +27,7 @@ public class Game {
             Date releaseDate,
             String pictureUrl
     ) {
-        this.urlId = name;
+        this.slug = name;
         this.name = name;
         this.description = description;
         this.genre = genre;

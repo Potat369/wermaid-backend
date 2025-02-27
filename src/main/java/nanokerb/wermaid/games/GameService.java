@@ -26,8 +26,8 @@ public class GameService {
         return gameRepository.findById(id);
     }
 
-    public Optional<Game> getGameByUrlId(String urlId) {
-        return gameRepository.findByUrlId(urlId);
+    public Optional<Game> getGameBySlug(String slug) {
+        return gameRepository.findBySlug(slug);
     }
 
     public void addGame(Game game) {

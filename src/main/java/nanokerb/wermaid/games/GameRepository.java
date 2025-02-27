@@ -11,5 +11,5 @@ import java.util.Optional;
 public interface GameRepository extends MongoRepository<Game, ObjectId> {
     List<Game> findByGenre(String genre);
 
-    Optional<Game> findByUrlId(String urlId);
+    Optional<Game> findBySlug(String slug);
 }

@@ -36,7 +36,7 @@ public class GameController {
 
     @PostMapping
     public void addGame(@RequestBody Game game) {
-        if (gameService.getGameByUrlId(game.urlId).isEmpty()) {
+        if (gameService.getGameBySlug(game.slug).isEmpty()) {
             gameService.addGame(game);
         }
     }
