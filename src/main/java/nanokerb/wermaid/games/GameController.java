@@ -33,4 +33,11 @@ public class GameController {
     public ResponseEntity<Optional<Game>> getGame(@PathVariable ObjectId id) {
         return new ResponseEntity<>(gameService.getGame(id), HttpStatus.OK);
     }
+
+    @PostMapping
+    public void addGame(@RequestBody Game game) {
+        if (gameService.getGameByUrlId(game.urlId).isEmpty()) {
+            gameService.addGame(game);
+        }
+    }
 }
