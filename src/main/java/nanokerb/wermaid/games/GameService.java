@@ -26,6 +26,10 @@ public class GameService {
         return gameRepository.findById(id);
     }
 
+    public Optional<Game> getGameByUrlId(String urlId) {
+        return gameRepository.findByUrlId(urlId);
+    }
+
     public void addGame(Game game) {
         gameRepository.insert(game);
     }
