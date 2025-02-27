@@ -8,7 +8,7 @@ import java.util.List;
 
 @Repository
 public interface RatingRepository extends MongoRepository<Rating, ObjectId> {
-    List<Rating> findAllByGameId(String gameId);
+    List<Rating> findAllByGameId(ObjectId gameId);
 
-    List<Rating> findAllByUsername(String username);
+    List<Rating> findAllByUserId(ObjectId userId);
 }

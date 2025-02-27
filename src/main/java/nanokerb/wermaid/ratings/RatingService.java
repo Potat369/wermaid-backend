@@ -18,11 +18,11 @@ public class RatingService {
         return repository.findById(id);
     }
 
-    public List<Rating> getByGameId(String gameId) {
+    public List<Rating> getByGameId(ObjectId gameId) {
         return repository.findAllByGameId(gameId);
     }
 
-    public List<Rating> getByUsername(String username) {
-        return repository.findAllByUsername(username);
+    public List<Rating> getByUserId(ObjectId userId) {
+        return repository.findAllByUserId(userId);
     }
 }

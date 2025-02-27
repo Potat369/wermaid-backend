@@ -8,8 +8,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Rating {
     @Id
     public ObjectId id;
-    public String username;
-    public String gameId;
+    public ObjectId userId;
+    public ObjectId gameId;
     public int rating;
     public String comment;
 }

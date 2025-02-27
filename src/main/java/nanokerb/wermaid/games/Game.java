@@ -1,20 +1,21 @@
 package nanokerb.wermaid.games;
 
-import nanokerb.wermaid.ratings.Rating;
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.Date;
+import java.util.List;
 
 @Document(collection = "games")
 public class Game {
     @Id
-    public String id;
+    public ObjectId id;
+    public String urlId;
     public String name;
     public String description;
     public String genre;
-    public Date releaseDate;
-    public String[] links;
+    public String releaseDate;
+    public List<String> links;
     public String pictureUrl;
-    public Rating[] ratings;
+    public List<ObjectId> ratings;
 }
