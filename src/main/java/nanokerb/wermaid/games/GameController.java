@@ -19,13 +19,8 @@ public class GameController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Game>> getGames(@RequestParam(required = false) String genre) {
-        if (genre != null) {
-
-            return new ResponseEntity<>(gameService.getGamesByGenre(genre), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(gameService.getGames(), HttpStatus.OK);
-        }
+    public ResponseEntity<List<Game>> getGames(@RequestParam String genre, @RequestParam int page) {
+        return new ResponseEntity<>(gameService.getGamesByGenre(genre, page), HttpStatus.OK);
     }
 
 
