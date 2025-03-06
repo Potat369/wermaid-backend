@@ -27,7 +27,7 @@ public class Game {
             Date releaseDate,
             String pictureUrl
     ) {
-        this.slug = name;
+        this.slug = name.toLowerCase().replaceAll("[^\\w\\d\\s]", "").replace(' ', '_');
         this.name = name;
         this.description = description;
         this.genre = genre;
