@@ -24,4 +24,8 @@ public class RatingService {
     public List<Rating> getByUserId(String userId) {
         return repository.findAllByUserId(userId);
     }
+
+    public void insert(String gameId, RatingRequest rating) {
+        repository.insert(new Rating(gameId, rating.rating, rating.comment));
+    }
 }
