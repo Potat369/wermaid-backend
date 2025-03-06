@@ -11,4 +11,10 @@ public class Rating {
     public String gameId;
     public int rating;
     public String comment;
+
+    public Rating(String gameId, int rating, String comment) {
+        this.gameId = gameId;
+        this.rating = rating;
+        this.comment = comment;
+    }
 }
