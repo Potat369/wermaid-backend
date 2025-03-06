@@ -1,6 +1,5 @@
 package nanokerb.wermaid.ratings;
 
-import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,15 +13,15 @@ public class RatingService {
         this.repository = repository;
     }
 
-    public Optional<Rating> getById(ObjectId id) {
+    public Optional<Rating> getById(String id) {
         return repository.findById(id);
     }
 
-    public List<Rating> getByGameId(ObjectId gameId) {
+    public List<Rating> getByGameId(String gameId) {
         return repository.findAllByGameId(gameId);
     }
 
-    public List<Rating> getByUserId(ObjectId userId) {
+    public List<Rating> getByUserId(String userId) {
         return repository.findAllByUserId(userId);
     }
 }
