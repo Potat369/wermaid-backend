@@ -1,5 +1,7 @@
 package nanokerb.wermaid.games;
 
+import nanokerb.wermaid.ratings.RatingRequest;
+import nanokerb.wermaid.ratings.RatingService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -7,14 +9,17 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api/v1/games")
 public class GameController {
 
     private final GameService gameService;
+    private final RatingService ratingService;
 
-    public GameController(GameService gameService) {
+    public GameController(GameService gameService, RatingService ratingService) {
         this.gameService = gameService;
+        this.ratingService = ratingService;
     }
 
     @GetMapping
@@ -37,5 +42,10 @@ public class GameController {
         if (gameService.getGameBySlug(game.slug).isEmpty()) {
             gameService.addGame(game);
         }
+    }
+
+    @PostMapping("id/{id}/rate")
+    public void rateGame(@PathVariable String id, @RequestBody RatingRequest rating) {
+        ratingService.insert(id, rating);
     }
 }
