@@ -1,6 +1,5 @@
 package nanokerb.wermaid.games;
 
-import org.bson.types.ObjectId;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,9 +22,13 @@ public class GameController {
         return new ResponseEntity<>(gameService.getGamesByGenre(genre, page), HttpStatus.OK);
     }
 
+    @GetMapping("slug/{slug}")
+    public ResponseEntity<Optional<Game>> getGame(@PathVariable String slug) {
+        return new ResponseEntity<>(gameService.getGameBySlug(slug), HttpStatus.OK);
+    }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Optional<Game>> getGame(@PathVariable ObjectId id) {
+    @GetMapping("id/{id}")
+    public ResponseEntity<Optional<Game>> getGameById(@PathVariable String id) {
         return new ResponseEntity<>(gameService.getGame(id), HttpStatus.OK);
     }
 

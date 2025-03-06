@@ -11,7 +11,7 @@ import java.util.List;
 @Document(collection = "games")
 public class Game {
     @Id
-    public ObjectId id;
+    public String id;
     public String slug;
     public String name;
     public String description;

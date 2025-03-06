@@ -1,6 +1,5 @@
 package nanokerb.wermaid.games;
 
-import org.bson.types.ObjectId;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +18,7 @@ public class GameService {
         return gameRepository.findByGenre(genre, PageRequest.of(page, 10)).getContent();
     }
 
-    public Optional<Game> getGame(ObjectId id) {
+    public Optional<Game> getGame(String id) {
         return gameRepository.findById(id);
     }
 
