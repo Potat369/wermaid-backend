@@ -9,7 +9,7 @@ import java.util.Optional;
 
 @Repository
 public interface GameRepository extends MongoRepository<Game, String> {
-    Page<Game> findByGenre(String genre, Pageable pageable);
+    Page<Game> findByGenres(String genre, Pageable pageable);
 
     Optional<Game> findBySlug(String slug);
 }

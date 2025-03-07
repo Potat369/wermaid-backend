@@ -15,7 +15,7 @@ public class GameService {
     }
 
     public List<Game> getGamesByGenre(String genre, int page) {
-        return gameRepository.findByGenre(genre, PageRequest.of(page, 10)).getContent();
+        return gameRepository.findByGenres(genre, PageRequest.of(page, 10)).getContent();
     }
 
     public Optional<Game> getGame(String id) {
