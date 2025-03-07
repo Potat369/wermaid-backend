@@ -4,9 +4,7 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Document(collection = "games")
 public class Game {
@@ -15,24 +13,27 @@ public class Game {
     public String slug;
     public String name;
     public String description;
-    public String genre;
+    public String[] genres;
+    public String[] links;
     public Date releaseDate;
     public String pictureUrl;
-    public List<ObjectId> ratings;
+    public ObjectId[] ratings;
 
     public Game(
             String name,
             String description,
-            String genre,
+            String[] genres,
+            String[] links,
             Date releaseDate,
             String pictureUrl
     ) {
         this.slug = name.toLowerCase().replaceAll("[^\\w\\d\\s]", "").replace(' ', '_');
         this.name = name;
         this.description = description;
-        this.genre = genre;
+        this.genres = genres;
+        this.links = links;
         this.releaseDate = releaseDate;
         this.pictureUrl = pictureUrl;
-        this.ratings = new ArrayList<>();
+        this.ratings = new ObjectId[0];
     }
 }
