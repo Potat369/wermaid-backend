@@ -38,14 +38,13 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody RegisterRequest registerRequest) {
+    public void register(@RequestBody RegisterRequest registerRequest) {
         String hashedPassword = passwordEncoder.encode(registerRequest.password());
         User user = new User();
         user.username = registerRequest.username();
         user.password = hashedPassword;
         user.displayName = registerRequest.displayName();
         user.role = Collections.singletonList(Role.USER);
-        return ResponseEntity.ok(userRepository.save(user));
     }
 
     @PostMapping("/login")
