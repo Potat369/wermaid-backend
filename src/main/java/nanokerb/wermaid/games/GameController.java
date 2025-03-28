@@ -47,4 +47,8 @@ public class GameController {
     public void rateGame(@PathVariable String id, @RequestBody RatingRequest rating) {
         ratingService.insert(id, rating);
     }
+    @DeleteMapping("id/{id}")
+    public void deleteGame(@PathVariable String id) {
+        gameService.deleteGame(id);
+    }
 }

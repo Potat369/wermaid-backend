@@ -29,4 +29,6 @@ public class GameService {
     public void addGame(Game game) {
         gameRepository.insert(game);
     }
+
+    public void deleteGame(String id) {gameRepository.deleteById(id);}
 }
