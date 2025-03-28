@@ -4,6 +4,7 @@ import nanokerb.wermaid.details.CustomUserDetailsService;
 import nanokerb.wermaid.users.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -40,6 +41,9 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                         .requestMatchers("/auth/login", "/auth/register").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/v1/games/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/v1/games").hasAuthority("ADMIN")
+                        .requestMatchers("/api/v1/games/id/{id}/rate").hasAuthority("USER")
                         .anyRequest().authenticated())
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(new JwtAuthFilter(jwtUtil(), userRepository), UsernamePasswordAuthenticationFilter.class)
