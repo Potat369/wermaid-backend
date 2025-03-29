@@ -1,6 +1,5 @@
 package nanokerb.wermaid.games;
 
-import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -17,7 +16,6 @@ public class Game {
     public String[] links;
     public Date releaseDate;
     public String pictureUrl;
-    public ObjectId[] ratings;
 
     public Game(
             String name,
@@ -34,6 +32,5 @@ public class Game {
         this.links = links;
         this.releaseDate = releaseDate;
         this.pictureUrl = pictureUrl;
-        this.ratings = new ObjectId[0];
     }
 }
