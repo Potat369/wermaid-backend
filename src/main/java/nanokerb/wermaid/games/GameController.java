@@ -31,12 +31,12 @@ public class GameController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Game>> getGames(@RequestParam String genre, @RequestParam int page) {
+    public ResponseEntity<List<GameResponse>> getGames(@RequestParam String genre, @RequestParam int page) {
         return new ResponseEntity<>(gameService.getGamesByGenre(genre, page), HttpStatus.OK);
     }
 
     @GetMapping("slug/{slug}")
-    public ResponseEntity<Optional<Game>> getGame(@PathVariable String slug) {
+    public ResponseEntity<GameResponse> getGame(@PathVariable String slug) {
         return new ResponseEntity<>(gameService.getGameBySlug(slug), HttpStatus.OK);
     }
 
@@ -47,9 +47,7 @@ public class GameController {
 
     @PostMapping
     public void addGame(@RequestBody Game game) {
-        if (gameService.getGameBySlug(game.slug).isEmpty()) {
-            gameService.addGame(game);
-        }
+        gameService.addGame(game);
     }
 
     @PostMapping("id/{id}/rate")
