@@ -40,7 +40,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
-                        .requestMatchers("/auth/login", "/auth/register").permitAll()
+                        .requestMatchers("/auth/login", "/auth/register", "/api/v1/ratings/game/{gameId}").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/games/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/v1/games").hasAuthority("ADMIN")
                         .requestMatchers("/api/v1/games/id/{id}/rate").hasAuthority("USER")
