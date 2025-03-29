@@ -1,9 +1,6 @@
 package nanokerb.wermaid.ratings;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,7 +20,7 @@ public class RatingController {
     }
 
     @GetMapping("game/{gameId}")
-    public List<Rating> getRatingByGameId(@PathVariable String gameId) {
-        return ratingService.getByGameId(gameId);
+    public List<RatingGameResponse> getRatingByGameId(@PathVariable String gameId) {
+        return ratingService.searchRatings(gameId);
     }
 }
