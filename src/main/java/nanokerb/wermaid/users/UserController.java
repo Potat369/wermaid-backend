@@ -15,21 +15,20 @@ public class UserController {
 
     private JwtUtil jwtUtil;
     private UserRepository userRepository;
+
     public UserController(JwtUtil jwtUtil, UserRepository userRepository) {
         this.jwtUtil = jwtUtil;
         this.userRepository = userRepository;
     }
+
     @GetMapping()
     @PreAuthorize("hasAuthority('USER')")
     public Optional<ResponseUser> getUser(HttpServletRequest request) {
-        Optional<String> token = jwtUtil.parseToken(request);
-        if (token.isPresent()) {
-            String username = jwtUtil.getUsername(token.get());
-            Optional<ResponseUser> userDetails = userRepository.findUserByUsername(username);
-            return userDetails;
+        String token = jwtUtil.parseToken(request);
+        String username = jwtUtil.getUsername(token);
+        Optional<ResponseUser> userDetails = userRepository.findUserByUsername(username);
+        return userDetails;
 
-        }
-        return Optional.empty();
     }
 
 }

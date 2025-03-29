@@ -54,13 +54,19 @@ public class JwtUtil {
     }
 
 
-    public Optional<String> parseToken(HttpServletRequest request) {
+    public Optional<String> parseTokenOptional(HttpServletRequest request) {
         String token = request.getHeader("Authorization");
 
         if (token != null && token.startsWith("Bearer ")) {
             return Optional.of(token.substring(7));
         }
         return Optional.empty();
+    }
+
+    public String parseToken(HttpServletRequest request) {
+        String token = request.getHeader("Authorization");
+
+        return token.substring(7);
     }
 
 
