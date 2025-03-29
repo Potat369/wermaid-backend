@@ -1,6 +1,7 @@
 package nanokerb.wermaid.users;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ResponseUser {
@@ -9,4 +10,5 @@ public class ResponseUser {
     public String displayName;
     public String username;
     public List<Role> role = new ArrayList<>();
+    public Date registrationDate;
 }

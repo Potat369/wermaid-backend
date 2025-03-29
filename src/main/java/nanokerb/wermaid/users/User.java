@@ -4,6 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Document(collection = "users")
@@ -15,7 +16,7 @@ public class User {
     public String username;
     public String password;
     public List<Role> role = new ArrayList<>();
-
+    public Date registrationDate;
 
 
 }
