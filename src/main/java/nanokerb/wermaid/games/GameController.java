@@ -1,25 +1,20 @@
 package nanokerb.wermaid.games;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import nanokerb.wermaid.ratings.RatingRequest;
 import nanokerb.wermaid.ratings.RatingService;
 import nanokerb.wermaid.security.JwtUtil;
 import nanokerb.wermaid.users.User;
 import nanokerb.wermaid.users.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.aggregation.Field;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
-import org.springframework.data.util.ReflectionUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.Format;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -30,18 +25,16 @@ public class GameController {
 
     private final GameService gameService;
     private final RatingService ratingService;
-    private JwtUtil jwtUtil;
-    private UserService userService;
-    private GameRepository gameRepository;
-    @Autowired
-    private MongoTemplate mongoTemplate;
+    private final JwtUtil jwtUtil;
+    private final UserService userService;
+    private final MongoTemplate mongoTemplate;
 
-    public GameController(GameService gameService, RatingService ratingService, JwtUtil jwtUtil, UserService userService, GameRepository gameRepository) {
+    public GameController(GameService gameService, RatingService ratingService, JwtUtil jwtUtil, UserService userService, GameRepository gameRepository, MongoTemplate mongoTemplate) {
         this.gameService = gameService;
         this.ratingService = ratingService;
         this.jwtUtil = jwtUtil;
         this.userService = userService;
-        this.gameRepository = gameRepository;
+        this.mongoTemplate = mongoTemplate;
     }
 
     @GetMapping
@@ -69,7 +62,7 @@ public class GameController {
         String token = jwtUtil.parseToken(request);
         String username = jwtUtil.getUsername(token);
         Optional<User> user = userService.findByUsername(username);
-        if(user.isPresent()) {
+        if (user.isPresent()) {
             String userId = user.get().id;
             ratingService.insert(id, rating, userId);
         }

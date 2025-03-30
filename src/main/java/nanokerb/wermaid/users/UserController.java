@@ -13,8 +13,8 @@ import java.util.Optional;
 @RequestMapping("api/v1/user")
 public class UserController {
 
-    private JwtUtil jwtUtil;
-    private UserRepository userRepository;
+    private final JwtUtil jwtUtil;
+    private final UserRepository userRepository;
 
     public UserController(JwtUtil jwtUtil, UserRepository userRepository) {
         this.jwtUtil = jwtUtil;
