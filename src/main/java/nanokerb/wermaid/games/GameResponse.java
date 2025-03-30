@@ -2,8 +2,6 @@ package nanokerb.wermaid.games;
 
 import org.springframework.data.annotation.Id;
 
-import java.util.Date;
-
 public class GameResponse {
     @Id
     public String id;
@@ -12,11 +10,11 @@ public class GameResponse {
     public String description;
     public String[] genres;
     public String[] links;
-    public Date releaseDate;
+    public String releaseDate;
     public String pictureUrl;
     public float rating;
 
-    public GameResponse(String id, String slug, String name, String description, String[] genres, Date releaseDate, String pictureUrl, float rating) {
+    public GameResponse(String id, String slug, String name, String description, String[] genres, String releaseDate, String pictureUrl, float rating) {
         this.id = id;
         this.slug = slug;
         this.name = name;

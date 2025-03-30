@@ -3,8 +3,6 @@ package nanokerb.wermaid.games;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.Date;
-
 @Document(collection = "games")
 public class Game {
     @Id
@@ -14,7 +12,7 @@ public class Game {
     public String description;
     public String[] genres;
     public String[] links;
-    public Date releaseDate;
+    public String releaseDate;
     public String pictureUrl;
 
     public Game(
@@ -22,7 +20,7 @@ public class Game {
             String description,
             String[] genres,
             String[] links,
-            Date releaseDate,
+            String releaseDate,
             String pictureUrl
     ) {
         this.slug = name.toLowerCase().replaceAll("[^\\w\\d\\s]", "").replace(' ', '_');
