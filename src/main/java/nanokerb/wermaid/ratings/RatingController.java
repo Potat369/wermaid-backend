@@ -24,7 +24,10 @@ public class RatingController {
     public List<RatingGameResponse> getRatingByGameId(@PathVariable String gameId) {
         return ratingService.searchRatings(gameId);
     }
-
+    @GetMapping("user/{userId}")
+    public List<RatingUserResponse> getRatingByUserId(@PathVariable String userId) {
+        return ratingService.getRatings(userId);
+    }
     @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/id/{id}")
     public void deleteRatingById(@PathVariable String id) {

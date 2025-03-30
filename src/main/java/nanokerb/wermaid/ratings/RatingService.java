@@ -31,6 +31,16 @@ public class RatingService {
         repository.insert(new Rating(gameId, rating.rating, rating.comment, userId));
     }
 
+    public List<RatingUserResponse> getRatings(String userId) {
+        Aggregation aggregation = Aggregation.newAggregation(
+                Aggregation.match(Criteria.where("userId").is(new ObjectId(userId))),
+                Aggregation.lookup("games", "gameId", "_id", "game"),
+                Aggregation.project("id", "game.name", "game.pictureUrl", "rating", "comment", "date")
+        );
+        AggregationResults<RatingUserResponse> results = mongoTemplate.aggregate(aggregation, "ratings", RatingUserResponse.class);
+        return results.getMappedResults();
+    }
+
     public List<RatingGameResponse> searchRatings(String gameId) {
         Aggregation aggregation = Aggregation.newAggregation(
                 Aggregation.match(Criteria.where("gameId").is(new ObjectId(gameId))),
