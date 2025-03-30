@@ -2,6 +2,7 @@ package nanokerb.wermaid.games;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
@@ -42,8 +43,10 @@ public class GameService {
                         .first("pictureUrl").as("pictureUrl")
                         .avg("ratings.rating").as("averageRating"),
 
+
                 Aggregation.project("slug", "name", "description", "genres", "releaseDate", "pictureUrl")
-                        .and(ConditionalOperators.ifNull("averageRating").then(0)).as("rating")
+                        .and(ConditionalOperators.ifNull("averageRating").then(0)).as("rating"),
+                Aggregation.sort(Sort.by(Sort.Direction.DESC, "rating"))
         );
 
         AggregationResults<GameResponse> result = mongoTemplate.aggregate(aggregation, "games", GameResponse.class);
