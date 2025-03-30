@@ -68,11 +68,12 @@ public class GameService {
                         .first("name").as("name")
                         .first("description").as("description")
                         .first("genres").as("genres")
+                        .first("links").as("links")
                         .first("releaseDate").as("releaseDate")
                         .first("pictureUrl").as("pictureUrl")
                         .avg("ratings.rating").as("averageRating"),
 
-                Aggregation.project("slug", "name", "description", "genres", "releaseDate", "pictureUrl")
+                Aggregation.project("slug", "name", "description", "genres", "releaseDate", "pictureUrl", "links")
                         .and(ConditionalOperators.ifNull("averageRating").then(0)).as("rating")
         );
 
