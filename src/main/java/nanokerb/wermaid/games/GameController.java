@@ -7,11 +7,21 @@ import nanokerb.wermaid.ratings.RatingService;
 import nanokerb.wermaid.security.JwtUtil;
 import nanokerb.wermaid.users.User;
 import nanokerb.wermaid.users.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.Field;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
+import org.springframework.data.util.ReflectionUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.Format;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -22,12 +32,16 @@ public class GameController {
     private final RatingService ratingService;
     private JwtUtil jwtUtil;
     private UserService userService;
+    private GameRepository gameRepository;
+    @Autowired
+    private MongoTemplate mongoTemplate;
 
-    public GameController(GameService gameService, RatingService ratingService, JwtUtil jwtUtil, UserService userService) {
+    public GameController(GameService gameService, RatingService ratingService, JwtUtil jwtUtil, UserService userService, GameRepository gameRepository) {
         this.gameService = gameService;
         this.ratingService = ratingService;
         this.jwtUtil = jwtUtil;
         this.userService = userService;
+        this.gameRepository = gameRepository;
     }
 
     @GetMapping
@@ -64,5 +78,21 @@ public class GameController {
     @DeleteMapping("id/{id}")
     public void deleteGame(@PathVariable String id) {
         gameService.deleteGame(id);
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @PatchMapping("/id/{id}")
+    public ResponseEntity<Game> editGame(@PathVariable String id, @RequestBody Map<String, Object> updates) {
+        Query query = Query.query(Criteria.where("_id").is(id));
+        Update update = new Update();
+
+        updates.forEach(update::set);
+
+        mongoTemplate.updateFirst(query, update, Game.class);
+
+        Game updatedGame = mongoTemplate.findById(id, Game.class);
+
+        return updatedGame != null ? ResponseEntity.ok(updatedGame) : ResponseEntity.notFound().build();
+
     }
 }
