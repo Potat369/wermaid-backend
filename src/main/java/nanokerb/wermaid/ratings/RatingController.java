@@ -1,5 +1,6 @@
 package nanokerb.wermaid.ratings;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,5 +23,11 @@ public class RatingController {
     @GetMapping("game/{gameId}")
     public List<RatingGameResponse> getRatingByGameId(@PathVariable String gameId) {
         return ratingService.searchRatings(gameId);
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @DeleteMapping("/id/{id}")
+    public void deleteRatingById(@PathVariable String id) {
+        ratingService.deleteRating(id);
     }
 }

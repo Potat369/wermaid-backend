@@ -53,4 +53,6 @@ public class RatingService {
         AggregationResults<RatingGameResponse> results = mongoTemplate.aggregate(aggregation, "ratings", RatingGameResponse.class);
         return results.getMappedResults();
     }
+
+    public void deleteRating(String id) {repository.deleteById(id);}
 }
