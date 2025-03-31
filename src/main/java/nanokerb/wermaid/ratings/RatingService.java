@@ -35,7 +35,7 @@ public class RatingService {
         Aggregation aggregation = Aggregation.newAggregation(
                 Aggregation.match(Criteria.where("userId").is(new ObjectId(userId))),
                 Aggregation.lookup("games", "gameId", "_id", "game"),
-                Aggregation.project("id", "game.name", "game.pictureUrl", "rating", "comment", "date")
+                Aggregation.project("id", "game.name", "game.pictureUrl", "game.slug", "rating", "comment", "date")
         );
         AggregationResults<RatingUserResponse> results = mongoTemplate.aggregate(aggregation, "ratings", RatingUserResponse.class);
         return results.getMappedResults();
@@ -51,5 +51,7 @@ public class RatingService {
         return results.getMappedResults();
     }
 
-    public void deleteRating(String id) {repository.deleteById(id);}
+    public void deleteRating(String id) {
+        repository.deleteById(id);
+    }
 }
