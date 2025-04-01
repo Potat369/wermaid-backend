@@ -64,7 +64,11 @@ public class GameController {
         Optional<User> user = userService.findByUsername(username);
         if (user.isPresent()) {
             String userId = user.get().id;
-            ratingService.insert(id, rating, userId);
+            Query ratingQuery = Query.query(Criteria.where("gameId").is(id).and("userId").is(userId));
+
+            if(!mongoTemplate.exists(ratingQuery, "ratings")) {
+                ratingService.insert(id, rating, userId);
+            }
         }
     }
 
