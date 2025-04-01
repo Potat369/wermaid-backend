@@ -1,5 +1,6 @@
 package nanokerb.wermaid.controller;
 
+import jakarta.validation.Valid;
 import nanokerb.wermaid.requests.AuthRequest;
 import nanokerb.wermaid.requests.RegisterRequest;
 import nanokerb.wermaid.security.JwtUtil;
@@ -42,15 +43,19 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public void register(@RequestBody RegisterRequest registerRequest) {
-        String hashedPassword = passwordEncoder.encode(registerRequest.password());
-        User user = new User();
-        user.username = registerRequest.username();
-        user.password = hashedPassword;
-        user.displayName = registerRequest.displayName();
-        user.role = Collections.singletonList(Role.USER);
-        user.registrationDate = new Date();
-        userRepository.save(user);
+    public void register(@Valid @RequestBody RegisterRequest registerRequest) {
+        if(userRepository.findUserByUsername(registerRequest.username()).isEmpty()){
+            String hashedPassword = passwordEncoder.encode(registerRequest.password());
+            User user = new User();
+            user.username = registerRequest.username();
+            user.password = hashedPassword;
+            user.displayName = registerRequest.displayName();
+            user.role = Collections.singletonList(Role.USER);
+            user.registrationDate = new Date();
+            userRepository.save(user);
+        }
+
+
     }
 
     @PostMapping("/login")
