@@ -1,6 +1,7 @@
 package nanokerb.wermaid.games;
 
 import jakarta.servlet.http.HttpServletRequest;
+import nanokerb.wermaid.ratings.Rating;
 import nanokerb.wermaid.ratings.RatingRequest;
 import nanokerb.wermaid.ratings.RatingService;
 import nanokerb.wermaid.security.JwtUtil;
@@ -57,6 +58,7 @@ public class GameController {
         gameService.addGame(game);
     }
 
+    @PreAuthorize("hasAuthority('USER')")
     @PostMapping("id/{id}/rate")
     public void rateGame(@PathVariable String id, @RequestBody RatingRequest rating, HttpServletRequest request) {
         String token = jwtUtil.parseToken(request);
@@ -66,7 +68,7 @@ public class GameController {
             String userId = user.get().id;
             Query ratingQuery = Query.query(Criteria.where("gameId").is(id).and("userId").is(userId));
 
-            if(!mongoTemplate.exists(ratingQuery, "ratings")) {
+            if(!mongoTemplate.exists(ratingQuery, Rating.class)) {
                 ratingService.insert(id, rating, userId);
             }
         }
